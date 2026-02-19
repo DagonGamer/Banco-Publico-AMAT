@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Banco de Exámenes de AMAT</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <h1>Banco de Exámenes de AMAT</h1>
+
+    <p>Este es el banco de exámenes de AMAT, público y gratuito abierto a todos los estudiantes. Agradecemos la colaboración del profesorado del grado compartiendo con nosotros sus exámenes.</p>
+    
+    <div class="Examenes" style="pointer-events: none; opacity: 0;"></div>
+
+    <script>
+
+        var Asignaturas = [
+            [
+                [
+                    "Cálculo I",
+                    "Estadística Descriptiva e Introducción a la Probabilidad",
+                    "Geometría I",
+                    "Informática I",
+                    "Álgebra I"
+                ],
+                [
+                    "Cálculo II",
+                    "Física General",
+                    "Geometría II",
+                    "Informática II",
+                    "Métodos Numéricos I"
+                ]
+            ],
+            [
+                [
+                    "Análisis Matemático I",
+                    "Geometría III",
+                    "Modelos Matemáticos I",
+                    "Topología I",
+                    "Álgebra II"
+                ],
+                [
+                    "Análisis Matemático II",
+                    "Curvas y Superficies",
+                    "Ecuaciones Diferenciales I",
+                    "Mecánica",
+                    "Probabilidad"
+                ]
+            ],
+            [
+                [
+                    "Análisis Funcional",
+                    "Ecuaciones Diferenciales II",
+                    "Inferencia Estadística",
+                    "Variable Compleja I"
+                ],
+                [
+                    "Modelos Matemáticos II",
+                    "Métodos Numéricos II",
+                    "Topología II",
+                    "Álgebra III"
+                ]
+            ],
+            [
+                [
+                    "Análisis Vectorial",
+                    "Análisis de Fourier",
+                    "Ecuaciones Diferenciales en Mecánica y Biología",
+                    "Estadística Multivariante",
+                    "Geometría Global de Curvas y Superficies",
+                    "Historia de las Matemáticas",
+                    "Mecánica Celeste"
+                ],
+                [
+                    "Variedades Diferenciables",
+                    "Álgebra Conmutativa Computacional",
+                    "Análisis Numérico de Ecuaciones en Derivadas Parciales",
+                    "Ecuaciones en Derivadas Parciales",
+                    "Estadística Computacional",
+                    "Procesos Estocásticos",
+                    "Taller de Geometría y Topología",
+                    "Teoría de Números y Criptografía",
+                    "Variable Compleja II",
+                    "Álgebra Moderna",
+                    "Álgebras, Grupos y Representaciones",
+                    "Trabajo Fin de Grado"
+                ]
+            ]
+        ];
+
+        var Examenes = {
+            "Cálculo II": [
+                {
+                    curso: 2023,
+                    tipo: "Ordinario",
+                    examen: "Untitled document.pdf",
+                    soluciones: ["Untitled document-1.pdf", "Untitled document-2.pdf"]
+                },
+                {
+                    curso: 2024,
+                    tipo: "Parcial",
+                    examen: "Untitled document.pdf",
+                    soluciones: ["Untitled document-1.pdf"]
+                },
+            ]
+        }
+
+        let cargarExamenes = (asignatura) => {
+
+            document.querySelector("div.Examenes").innerHTML = `<button onclick="document.querySelector('div.Examenes').style.pointerEvents = 'none'; document.querySelector('div.Examenes').style.opacity = '0';">\<</button><h2>${asignatura}</h2>`;
+            document.querySelector("div.Examenes").style.pointerEvents = "auto";
+            document.querySelector("div.Examenes").style.opacity = "1";
+
+            for (let examen of Examenes[asignatura] || []) {
+                let examenDiv = document.createElement("div");
+                examenDiv.innerHTML = `<h4>${examen.tipo} ${examen.curso}</h4><a href="Exámenes/${asignatura}/${examen.examen}" target="_blank">Enunciados</a>`;
+                for (let i = 0; i < (examen.soluciones || []).length; i++) {
+                    let solucionLink = document.createElement("a");
+                    solucionLink.href = `Exámenes/${asignatura}/${examen.soluciones[i]}`;
+                    solucionLink.target = "_blank";
+                    solucionLink.innerText = "Solución " + (i + 1);
+                    examenDiv.appendChild(solucionLink);
+                }
+                document.querySelector("div.Examenes").appendChild(examenDiv);
+            }
+
+            if (Examenes[asignatura] === undefined) {
+                let noExamenes = document.createElement("p");
+                noExamenes.innerText = "No hay exámenes disponibles para esta asignatura.";
+                document.querySelector("div.Examenes").appendChild(noExamenes);
+            }
+
+        }
+
+        for (let i = 0; i < 4; i++) {
+            let curso = document.createElement("div");
+            curso.innerHTML = `<h2>Curso ${i + 1}</h2>`;
+            for (let j = 0; j < 2; j++) {
+                let semestre = document.createElement("div");
+                semestre.innerHTML = `<h3>Cuatrimestre ${j + 1}</h3>`;
+                for (let k = 0; k < Asignaturas[i][j].length; k++) {
+                    let asignatura = document.createElement("button");
+                    asignatura.addEventListener("click", () => cargarExamenes(Asignaturas[i][j][k]));
+                    asignatura.innerText = Asignaturas[i][j][k];
+                    semestre.appendChild(asignatura);
+                }
+                curso.appendChild(semestre);
+            }
+            document.body.appendChild(curso);
+        }
+
+    </script>
+
+</body>
+</html>

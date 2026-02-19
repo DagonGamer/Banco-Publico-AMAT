@@ -1,0 +1,276 @@
+@font-face {
+    font-family: 'BloggerSans';
+    src: url('fonts/Blogger_Sans.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg: #071017;
+    --panel: #0d1418;
+    --muted: #98a0a6;
+    --accent: #7dd3fc;
+    --accent-2: #6ee7b7;
+    --border: rgba(255, 255, 255, 0.04);
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+/* Mantener selectores base según tu estructura */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(180deg, #061014 0%, #0b1216 60%);
+    color: #e6eef3;
+    font-family: 'BloggerSans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Elementos principales (respetando tu anidación en index.html) */
+body {
+    padding: 1rem
+}
+
+h1 {
+    font-size: 2rem;
+    margin: 0 0 .5rem 0;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin: 0 0 .4rem 0;
+    color: #ffffff
+}
+
+h3 {
+    font-size: 1.05rem;
+    margin: 0 0 0.4rem 0;
+    color: #dceff5
+}
+
+p {
+    margin: .4rem 0;
+    color: var(--muted);
+    line-height: 1.6
+}
+
+div {
+    border-radius: 0.5rem;
+    margin: 0.75rem 0px 0px 0px;
+}
+
+/* Botones generados para cada asignatura (en tu script se crean <button>) */
+button {
+    background: transparent;
+    color: #e6eef3;
+    border: 1px solid var(--border);
+    padding: .45rem .7rem;
+    border-radius: 8px;
+    margin: .25rem .25rem 0 0;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease;
+    display: block;
+    width: 100%;
+}
+
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.45)
+}
+
+/* Aumentar contraste entre niveles (curso > semestre > botones) manteniendo modo oscuro */
+body>div {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+    padding: .9rem;
+    margin: 0.75rem auto 0px auto;
+}
+
+body>div>div {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.010));
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 4px 14px rgba(2, 6, 23, 0.33);
+    margin: .5rem 0px 0px 0px;
+    padding: .7rem;
+}
+
+/* Botones dentro de semestres: ligeramente más contrastados y foco claro */
+body>div>div>button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    padding: .5rem .8rem;
+    color: #eaf6fb;
+}
+
+body>div>div>button:hover {
+    background: rgba(125, 211, 252, 0.035);
+    box-shadow: 0 16px 36px rgba(2, 6, 23, 0.35);
+}
+
+body>div>div>button:focus {
+    outline: 2px solid rgba(125, 211, 252, 0.12);
+    outline-offset: 3px;
+}
+
+/* Responsive mínimo */
+@media (max-width:20rem) {
+    h1 {
+        font-size: 1.4rem
+    }
+
+    div {
+        padding: .6rem
+    }
+
+    button {
+        padding: .4rem .55rem
+    }
+}
+
+@media (min-width: 45rem) and (max-width: 80rem) {
+    body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    body>div {
+        width: calc(50% - 1rem);
+        margin: 0.75rem 0.5rem 0px 0.5rem;
+    }
+}
+
+@media (min-width: 80rem) {
+    body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    body>div {
+        width: calc(25% - 1rem);
+        margin: 0.75rem 0.5rem 0px 0.5rem;
+    }
+}
+
+/* Utilidades ligeras */
+.muted {
+    color: var(--muted)
+}
+
+.center {
+    text-align: center
+}
+
+/* Focus visible */
+:focus {
+    outline: 3px solid rgba(125, 211, 252, 0.12);
+    outline-offset: 3px
+}
+
+/* Modal de Exámenes con blur y coherencia visual */
+div.Examenes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 1rem;
+    backdrop-filter: blur(4px) brightness(0.85);
+    overflow-y: auto;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 1000;
+    margin: 0px;
+    border: none;
+    border-radius: 0px;
+    display: inline;
+}
+
+/* Botón de cierre en modal Exámenes */
+div.Examenes > button {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e6eef3;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 3rem;
+}
+
+div.Examenes > button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Título de asignatura en modal */
+div.Examenes > h2 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin: 1rem;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    display: inline;
+    position: relative;
+    top: 0.25rem;
+}
+
+/* Divs de examen dentro del modal */
+div.Examenes > div {
+    background: linear-gradient(180deg, rgba(13, 20, 24, 0.8), rgba(7, 16, 23, 0.9));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 0.75rem 0;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+div.Examenes > div > h4 {
+    color: #dceff5;
+    font-size: 1.1rem;
+    margin: 0;
+    flex: 0 0 auto;
+}
+
+/* Enlaces dentro de exámenes */
+div.Examenes > div > a {
+    display: inline-block;
+    color: #7dd3fc;
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+    text-decoration: underline;
+    font-size: 0.95rem;
+}
+
+div.Examenes > div > a:hover {
+    background: transparent;
+    border: none;
+    color: #a8e6fd;
+    text-decoration: underline;
+    transform: none;
+}
